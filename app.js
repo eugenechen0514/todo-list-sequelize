@@ -13,9 +13,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/todos', (req, res, next) => {
-    Todo.findAll({})
+    return Todo.findAll({
+        attributes: ['id', 'name'],
+        raw: true        
+    })
         .then((todos) => {
-            res.send({todos})
+            console.log(todos)
+            res.render('todos', {todos})
         })
         .catch(next)
 })
