@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  devcontainer:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # node version ex: 20 / 18
+        # 完整清單見: https://mcr.microsoft.com/v2/vscode/devcontainers/javascript-node/tags/list
+        VARIANT: "20"
+    volumes:
+      - ../..:/workspaces:cached      
+    network_mode: host
+    command: sleep infinity
+  mysql:
+    image: mysql:8.0.33
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: todo
+      MYSQL_USER: todo
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql:/var/lib/mysql
+volumes:
+  mysql:
