@@ -3,12 +3,14 @@ const app = express()
 const db = require('./models')
 const Todo = db.Todo;
 const { engine } = require('express-handlebars')
+const methodOverride = require('method-override')
 
 app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -44,6 +46,31 @@ app.get('/todos/:id', (req, res, next) => {
         raw: true
     })
         .then((todo) =>  res.render('todo', {todo}))
+})
+
+app.get('/todos/:id/edit', (req, res) => {
+    const id = req.params.id
+    return Todo.findByPk(id, {
+        attributes: ['id', 'name'],
+        raw: true
+    })
+        .then((todo) => res.render('edit', {todo}))
+})
+
+app.put('/todos/:id', (req, res) => {
+    const body = req.body
+    const id = req.params.id
+    console.log(req.body)
+    return Todo.update({name: body.name}, {where: {id}})
+            .then((todo) => res.redirect('/todos'))
+    // return Todo.findByPk(id, {
+    //     attributes: ['id', 'name'],
+    // })
+    //     .then((todo) => {
+    //         todo.name = req.body.name
+    //         return todo.save()
+    //     })
+    //     .then((todo) => res.redirect('/todos'))
 })
 
 app.listen(3000, () => {
