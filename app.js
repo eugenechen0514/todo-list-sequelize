@@ -37,6 +37,14 @@ app.post('/todos', (req, res, next) => {
         .then(() => res.redirect('/todos'))
 })
 
+app.get('/todos/:id', (req, res, next) => {
+    const id = req.params.id
+    return Todo.findByPk(id, {
+        attributes: ['id', 'name'],
+        raw: true
+    })
+        .then((todo) =>  res.render('todo', {todo}))
+})
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000')
