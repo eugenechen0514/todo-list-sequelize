@@ -73,6 +73,12 @@ app.put('/todos/:id', (req, res) => {
     //     .then((todo) => res.redirect('/todos'))
 })
 
+app.delete('/todos/:id', (req, res) => {
+    const id = req.params.id
+    return Todo.destroy({where: {id}})
+        .then(() => res.redirect('/todos'))
+})
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000')
 })
