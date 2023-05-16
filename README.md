@@ -1,5 +1,6 @@
 # 設定開發環境
-[.devcontainer/docker-compose.yml](./.devcontainer/docker-compose.yml) 裡面可以設定開發環境，如：nodejs / mysql 的版本和 mysql 的起動設定
+[.devcontainer/docker-compose.yml](./.devcontainer/docker-compose.yml) 設定開發環境或是相依服務，如：nodejs / mysql 的版本和 mysql 的起動設定
+[.devcontainer/Dockerfile](./.devcontainer/Dockerfile) 開發環境的基底映象檔，可以安裝運行開發環境時的其它指令，如：Heroku CLI, nodemon…等。
 
 # 啟動方式
 **準備**
