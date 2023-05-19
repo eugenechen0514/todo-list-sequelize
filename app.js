@@ -38,17 +38,28 @@ app.get('/todos', (req, res, next) => {
 })
 
 app.get('/todos/new', (req, res, next) => {
-    return res.render('new')
+    return res.render('new', { error: req.flash('error') })
 })
 
 app.post('/todos', (req, res, next) => {
-    const name = req.body.name
-    console.log(name)
-    return Todo.create({name})
-        .then(() => {
-            req.flash('success', '新增成功!')
-            return res.redirect('/todos')
-        })
+	try {
+		const name = req.body.name
+
+		return Todo.create({ name })
+			.then(() => {
+				req.flash('success', '新增成功!')
+				return res.redirect('/todos')
+			})
+			.catch((error) => {
+				console.error(error)
+				req.flash('error', '新增失敗:(')
+				return res.redirect('back')
+			})
+	} catch (error) {
+		console.error(error)
+		req.flash('error', '新增失敗:(')
+		return res.redirect('back')
+	}
 })
 
 app.get('/todos/:id', (req, res, next) => {
@@ -90,6 +101,11 @@ app.delete('/todos/:id', (req, res) => {
             return res.redirect('/todos')
         })
 })
+
+app.get('/tt', (req, res) => {
+    throw new Error('')
+})
+
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000')
