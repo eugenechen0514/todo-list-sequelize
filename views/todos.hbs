@@ -1,11 +1,9 @@
-{{#if message}}
-<div>{{message}}</div>
-{{/if}}
+{{> message}}
 <a href="/todos/new">Create</a>
 <ul>
   {{#each todos}}
     <li>
-      <input type="checkbox" disabled {{#if this.isComplete}} checked {{/if}} />
+      <input type="checkbox" disabled {{#if this.isComplete}} checked {{/if}}>
       {{this.name}}
       <a href="/todos/{{this.id}}">detail</a>
       <a href="/todos/{{this.id}}/edit">edit</a>
@@ -14,4 +12,4 @@
       </form>
     </li>
   {{/each}}
-</ul> 
+</ul>

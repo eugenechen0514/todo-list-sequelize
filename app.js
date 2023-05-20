@@ -7,6 +7,8 @@ const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
 
 const router = require('./routers');
+const messageHandler = require('./middlewares/message-handler')
+const errorHandler = require('./middlewares/error-handler')
 
 const port = 3000
 
@@ -24,7 +26,18 @@ app.use(session({
 }))
 app.use(flash())
 
+app.use(messageHandler)
+app.get('/tt', (req, res) => {
+    res.send('h1')
+    res.send('hi2')
+})
+
 app.use(router);
+
+
+app.use(errorHandler)
+
+
 
 app.listen(port, () => {
     console.log('Server is running on port 3000')
