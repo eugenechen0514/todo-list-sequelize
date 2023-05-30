@@ -16,5 +16,21 @@ RUN apt-get install -y git curl wget telnet vim
 # RUN apt-get update
 # RUN apt-get install -y mysql-shell
 
+
+
+# Install python/pip
+RUN sudo apt-get install -y pip
+RUN sudo ln -sf python3 /usr/bin/python
+RUN sudo ln -sf pip3 /usr/bin/pip
+RUN pip install virtualenv
+
 # Install npm packages
 RUN npm install -g nodemon
+
+# aws cli
+USER node
+RUN sudo git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
+RUN sudo mv aws-elastic-beanstalk-cli-setup /tmp/
+
+RUN python /tmp/aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py 
+ENV PATH="${PATH}:/home/node/.ebcli-virtual-env/executables"
