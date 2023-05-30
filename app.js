@@ -3,6 +3,8 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const app = express()
 
+const passport = require('passport')
+
 if (process.env.NODE_ENV === 'development') {
 	require('dotenv').config()
 }
@@ -31,6 +33,9 @@ app.use(session({
 	saveUninitialized: false
 }))
 app.use(flash())
+
+app.use(passport.initialize())
+// app.use(passport.session())
 
 app.use(messageHandler)
 
