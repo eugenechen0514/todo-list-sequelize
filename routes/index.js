@@ -25,25 +25,23 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, 
 		})
 }))
 
+// passport session support
 passport.serializeUser((user, done) => {
 	const { id, name, email } = user
 	return done(null, { id, name, email })
 })
 
-
-// passport.deserializeUser(function (user, done) {
-// 	User.findOne({where: {id: user.id}})
-// 	.then(u => {
-// 		done(null, u)
-// 	}).catch(e => {
-// 		done(e)
-// 	})
-// })
+// passport session support
+// 設定資料如何從 session 中取出，取入 req.user
+passport.deserializeUser((user, done) => {
+	done(null, { id: user.id })
+})
 
 const todos = require('./todos')
 const users = require('./users')
+const authHandler = require('../middlewares/auth-handler')
 
-router.use('/todos', todos)
+router.use('/todos', authHandler, todos)
 router.use('/users', users)
 
 router.get('/', (req, res) => {
@@ -64,7 +62,12 @@ router.post('/login', passport.authenticate('local', {
 	failureFlash: true
 }))
 
-router.post('/logout', (req, res) => {
+router.post('/logout', (req, res, next) => {
+	req.logout((error) => {
+		if (error) {
+			return next(error)
+		}
+	})
 	return res.send('logout')
 })
 

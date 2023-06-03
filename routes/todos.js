@@ -6,6 +6,7 @@ const Todo = db.Todo
 
 router.get('/', (req, res, next) => {
 	console.log('session', req.session)
+	console.log('user', req.user)
 	const page = parseInt(req.query.page) || 1;
 	const limit = 10
 
@@ -15,7 +16,7 @@ router.get('/', (req, res, next) => {
 		offset: (page - 1) * limit,
 		limit
 	})
-		.then((todos) => res.render('todos', { 
+		.then((todos) => res.render('todos', {
 			todos,
 			prev: page > 1 ? page - 1:  page,
 			next: page + 1,
@@ -33,7 +34,7 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res, next) => {
 	const name = req.body.name
-	
+
 	return Todo.create({ name })
 		.then(() => {
 			req.flash('success', '新增成功!')
