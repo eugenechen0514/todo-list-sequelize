@@ -4,8 +4,6 @@ const router = express.Router()
 const db = require('../models')
 const Todo = db.Todo
 
-Todo.sync({ alter: true })
-
 router.get('/', (req, res, next) => {
 	console.log('session', req.session)
 	console.log('user', req.user)
