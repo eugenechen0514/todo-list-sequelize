@@ -11,16 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User, {
+        foreignKey: 'userId'
+      })
     }
   }
   Todo.init({
     name: DataTypes.STRING,
     isComplete: {
-      type:  DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
-
   }, {
     sequelize,
     modelName: 'Todo',

@@ -4,6 +4,8 @@ const router = express.Router()
 const db = require('../models')
 const Todo = db.Todo
 
+Todo.sync({ alter: true })
+
 router.get('/', (req, res, next) => {
 	console.log('session', req.session)
 	console.log('user', req.user)
@@ -18,7 +20,7 @@ router.get('/', (req, res, next) => {
 	})
 		.then((todos) => res.render('todos', {
 			todos,
-			prev: page > 1 ? page - 1:  page,
+			prev: page > 1 ? page - 1 : page,
 			next: page + 1,
 			page
 		}))
@@ -78,7 +80,7 @@ router.put('/:id', (req, res, next) => {
 	const { name, isComplete } = req.body
 	const id = req.params.id
 
-	return Todo.update({ name, isComplete: isComplete === 'completed' }, { where: { id }})
+	return Todo.update({ name, isComplete: isComplete === 'completed' }, { where: { id } })
 		.then(() => {
 			req.flash('success', '更新成功!')
 			return res.redirect(`/todos/${id}`)
@@ -92,7 +94,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
 	const id = req.params.id
 
-	return Todo.destroy({ where: { id }})
+	return Todo.destroy({ where: { id } })
 		.then(() => {
 			req.flash('success', '刪除成功!')
 			return res.redirect('/todos')
