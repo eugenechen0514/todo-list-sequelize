@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 
 const db = require('../models')
 const User = db.User
@@ -11,20 +12,19 @@ router.post('/', (req, res, next) => {
         req.flash('error', 'email 及 password 為必填')
         return res.redirect('back')
     }
-    
+
     if (password !== confirmPassword) {
         req.flash('error', '驗證密碼與密碼不符')
         return res.redirect('back')
     }
 
-    return User.count({ where: { email }})
+    return User.count({ where: { email } })
         .then((rowCount) => {
             if (rowCount > 0) {
                 req.flash('error', 'email 已註冊')
                 return
             }
-
-            return User.create({ email, name, password })
+            return bcrypt.hash(password, 10).then(hash => User.create({ email, name, password: hash }))
         })
         .then((user) => {
             if (!user) {
