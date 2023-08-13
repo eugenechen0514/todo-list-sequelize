@@ -20,7 +20,7 @@ const router = require('./routes')
 const messageHandler = require('./middlewares/message-handler')
 const errorHandler = require('./middlewares/error-handler')
 
-const port = 3000
+const port = Number(process.env.PORT) || 3000
 
 
 app.engine('.hbs', engine({ extname: '.hbs' }))
