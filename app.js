@@ -12,6 +12,12 @@ const secret = process.env.SESSION_SECRET || '!!UNSAFE_SESSION_SECRET!!';
 console.log(`secret: ${secret}`)
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
+console.log(`RDS_HOSTNAME: ${process.env.RDS_HOSTNAME}`)
+console.log(`RDS_PORT: ${process.env.RDS_PORT}`)
+console.log(`RDS_DB_NAME: ${process.env.RDS_DB_NAME}`)
+console.log(`RDS_USERNAME: ${process.env.RDS_USERNAME}`)
+console.log(`RDS_PASSWORD: ${process.env.RDS_PASSWORD}`)
+
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
 
