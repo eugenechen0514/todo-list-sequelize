@@ -10,7 +10,8 @@ module.exports = {
         key: 'id'
       },
       onDelete: 'CASCADE',
-      onUpdate: 'CASCADE'
+      onUpdate: 'CASCADE',
+      allowNull: true,
     })
   },
 
