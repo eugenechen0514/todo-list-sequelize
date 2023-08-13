@@ -8,7 +8,8 @@ const passport = require('passport')
 if (process.env.NODE_ENV === 'development') {
 	require('dotenv').config()
 }
-console.log(`secret: ${process.env.SESSION_SECRET}`)
+const secret = process.env.SESSION_SECRET || '!!UNSAFE_SESSION_SECRET!!';
+console.log(`secret: ${secret}`)
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
@@ -20,6 +21,7 @@ const errorHandler = require('./middlewares/error-handler')
 
 const port = 3000
 
+
 app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
@@ -28,7 +30,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.use(session({
-	secret: process.env.SESSION_SECRET,
+	secret,
 	resave: false,
 	saveUninitialized: false
 }))
