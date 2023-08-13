@@ -18,4 +18,3 @@ https://github.com/eugenechen0514/todo-list-sequelize/assets/20304035/f13358ef-f
 
 # wiki
 [操作示範－以 Heroku CLI 為例](https://github.com/eugenechen0514/todo-list-sequelize-devcontainer/wiki/%E6%93%8D%E4%BD%9C%E7%A4%BA%E7%AF%84%EF%BC%8D%E4%BB%A5-Heroku-CLI-%E7%82%BA%E4%BE%8B)
-
