@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "start:dev": "NODE_ENV=development node app.js",
-    "dev": "NODE_ENV=development nodemon app.js"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "dbmigrate": "npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
