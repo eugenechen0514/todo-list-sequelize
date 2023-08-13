@@ -11,7 +11,7 @@ module.exports = {
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
-      allowNull: true,
+      allowNull: false,
     })
   },
 
