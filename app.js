@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 const secret = process.env.SESSION_SECRET || '!!UNSAFE_SESSION_SECRET!!';
 console.log(`secret: ${secret}`)
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
