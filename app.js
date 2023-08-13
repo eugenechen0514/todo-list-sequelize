@@ -12,6 +12,7 @@ const secret = process.env.SESSION_SECRET || '!!UNSAFE_SESSION_SECRET!!';
 console.log(`secret: ${secret}`)
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
+console.log(`PROD_DATABASE_URL: ${process.env.PROD_DATABASE_URL}`)
 console.log(`RDS_HOSTNAME: ${process.env.RDS_HOSTNAME}`)
 console.log(`RDS_PORT: ${process.env.RDS_PORT}`)
 console.log(`RDS_DB_NAME: ${process.env.RDS_DB_NAME}`)
